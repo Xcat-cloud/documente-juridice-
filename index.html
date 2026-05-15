@@ -371,6 +371,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
     <div class="f"><label>IDNO</label><input id="d-SOC_IDNO" placeholder="1234567890123"></div>
     <div class="f full"><label>Sediu (adresa)</label><input id="d-SOC_SEDIU" placeholder="str. Exemplu 1, mun. Chisinau"></div>
     <div class="f"><label>Capitalul social (MDL)</label><input id="d-CAP_SOC" placeholder="5400"></div>
+    <div class="f"><label>Data infiintarii entitatii</label><input id="d-DATA_INF" placeholder="01.01.2010"></div>
     <div class="f"><label>An gestiune</label><input id="d-AN" placeholder="2024"></div>
   </div></div></div>
   <div class="card"><div class="ch"><div class="ico ic3">&#128100;</div><h2>Asociatul unic</h2></div><div class="cb"><div class="g2">
@@ -24042,7 +24043,7 @@ function genDecizie(){
     pc([rb('Decizie nr. '),rb(NR)], 100),
     pc([rb('al Asociatului Unic')], 100),
     pc([rb('Societății cu Răspundere Limitată „'),rb(SOC),rb('” SRL')], 100),
-    pc([rn('IDNO: '),rb(SOC_ID),rn(' din '),rb(D)], 360),
+    pc([rn('IDNO: '),rb(SOC_ID),rn(' din '),rb(v('d-DATA_INF'))], 360),
 
     // Data / Sediu / Capital
     pl([rb('Data: '),rn(D)], 180),
