@@ -38,6 +38,16 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
 .f input:focus,.f textarea:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1);background:white;}
 .f textarea{resize:vertical;min-height:52px;}
 .hint{font-size:10px;color:#94a3b8;margin-top:1px;}
+.compact-wrap{max-width:600px;}
+.compact-wrap .g2{grid-template-columns:1fr 1fr;}
+.compact-wrap .g3{grid-template-columns:1fr 1fr 1fr;}
+
+.admin-row{display:flex;gap:8px;align-items:flex-end;}
+.admin-row .f{flex:1;}
+.gen-toggle{display:flex;gap:4px;margin-bottom:0;align-items:center;flex-shrink:0;}
+.gen-btn{border:1.5px solid #e2e8f0;background:white;border-radius:7px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer;color:#64748b;font-family:inherit;white-space:nowrap;transition:all .15s;line-height:1;}
+.gen-btn.active{background:#1a2e4a;border-color:#1a2e4a;color:white;}
+.gen-btn:hover:not(.active){border-color:#3b82f6;color:#1d4ed8;}
 .type-toggle{display:flex;gap:8px;margin-bottom:14px;}
 .type-btn{border:1.5px solid #e2e8f0;background:white;border-radius:8px;padding:6px 16px;font-size:12px;font-weight:700;cursor:pointer;color:#64748b;transition:all .15s;font-family:inherit;}
 .type-btn.active{background:#1a2e4a;border-color:#1a2e4a;color:white;}
@@ -70,6 +80,8 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
     <button class="db" onclick="sel('locspatiu')" id="btn-locspatiu"><span class="di">&#127970;</span><span class="dn">Locatiune Spatiu</span><span class="dl">RO</span></button>
     <button class="db" onclick="sel('decizie')" id="btn-decizie"><span class="di">&#128221;</span><span class="dn">Decizie Dividende</span><span class="dl">RO</span></button>
     <button class="db" onclick="sel('pverbal')" id="btn-pverbal"><span class="di">&#128203;</span><span class="dn">Proces-Verbal Dividende</span><span class="dl">RO</span></button>
+    <button class="db" onclick="sel('vanzare_dec')" id="btn-vanzare_dec"><span class="di">&#128179;</span><span class="dn">Decizie Vanzare</span><span class="dl">RO</span></button>
+    <button class="db" onclick="sel('angajare')" id="btn-angajare"><span class="di">&#128188;</span><span class="dn">Pachet Angajare (4 doc.)</span><span class="dl">RO • ZIP</span></button>
   </div>
 </div>
 
@@ -82,7 +94,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
     <div class="f"><label>Denumire firma</label><input id="p-CR_DEN" placeholder="Firma Mea"></div>
     <div class="f"><label>Forma juridica</label><input id="p-CR_F" placeholder="SRL"></div>
     <div class="f"><label>IDNO</label><input id="p-CR_ID" placeholder="1234567890123"></div>
-    <div class="f"><label>Administrator</label><input id="p-CR_AD" placeholder="Ion Popescu"></div>
+    <div class="admin-row"><div class="f"><label>Administrator</label><input id="p-CR_AD" placeholder="Ion Popescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('p-CR','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('p-CR','Dna',this)">Dna</button></div></div>
     <div class="f"><label>Banca</label><input id="p-CR_BA" placeholder="BC Moldova Agroindbank SA"></div>
     <div class="f"><label>Cod SWIFT</label><input id="p-CR_CO" placeholder="AGRNMD2X"></div>
     <div class="f full"><label>IBAN</label><input id="p-CR_IB" placeholder="MD24AG000000000002500000"></div>
@@ -136,7 +148,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
     <div id="i-SOC-j" class="g2">
       <div class="f"><label>Denumire firma</label><input id="i-SOC_NUME" placeholder="Firma Mea"></div>
       <div class="f"><label>IDNO</label><input id="i-SOC_IDNO" placeholder="1234567890123"></div>
-      <div class="f full"><label>Administrator</label><input id="i-SOC_ADMIN" placeholder="Vasile Ionescu"></div>
+      <div class="admin-row full"><div class="f"><label>Administrator</label><input id="i-SOC_ADMIN" placeholder="Vasile Ionescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('i-SOC','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('i-SOC','Dna',this)">Dna</button></div></div>
     </div>
     <div id="i-SOC-f" class="g2 hidden">
       <div class="f"><label>Nume Prenume</label><input id="i-SOC_FIZ_NUME" placeholder="Vasile Ionescu"></div>
@@ -168,8 +180,8 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
       <div class="f"><label>Denumire firma</label><input id="s-PR_NUME" placeholder="Firma Prestator"></div>
       <div class="f"><label>Forma juridica</label><input id="s-PR_FORMA" placeholder="SRL"></div>
       <div class="f full"><label>Adresa juridica</label><input id="s-PR_ADRESA" placeholder="str. Exemplu 1, mun. Chisinau"></div>
-      <div class="f"><label>CF / IDNO</label><input id="s-PR_CF" placeholder="1234567890123"></div>
-      <div class="f"><label>Administrator</label><input id="s-PR_ADMIN" placeholder="Ion Popescu"></div>
+      <div class="f"><label>IDNO</label><input id="s-PR_CF" placeholder="1234567890123"></div>
+      <div class="admin-row"><div class="f"><label>Administrator</label><input id="s-PR_ADMIN" placeholder="Ion Popescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('s-PR','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('s-PR','Dna',this)">Dna</button></div></div>
       <div class="f"><label>Telefon</label><input id="s-PR_TEL" placeholder="+373 XX XXX XXX"></div>
       <div class="f"><label>E-mail</label><input id="s-PR_EMAIL" placeholder="office@prestator.md"></div>
       <div class="f"><label>IBAN</label><input id="s-PR_IBAN" placeholder="MD24AG..."></div>
@@ -195,8 +207,8 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
       <div class="f"><label>Denumire firma</label><input id="s-BEN_NUME" placeholder="Firma Beneficiar"></div>
       <div class="f"><label>Forma juridica</label><input id="s-BEN_FORMA" placeholder="SRL"></div>
       <div class="f full"><label>Adresa juridica</label><input id="s-BEN_ADRESA" placeholder="str. Exemplu 2, mun. Chisinau"></div>
-      <div class="f"><label>CF / IDNO</label><input id="s-BEN_CF" placeholder="9876543210987"></div>
-      <div class="f"><label>Administrator</label><input id="s-BEN_ADMIN" placeholder="Vasile Ionescu"></div>
+      <div class="f"><label>IDNO</label><input id="s-BEN_CF" placeholder="9876543210987"></div>
+      <div class="admin-row"><div class="f"><label>Administrator</label><input id="s-BEN_ADMIN" placeholder="Vasile Ionescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('s-BEN','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('s-BEN','Dna',this)">Dna</button></div></div>
       <div class="f"><label>Telefon</label><input id="s-BEN_TEL" placeholder="+373 XX XXX XXX"></div>
       <div class="f"><label>E-mail</label><input id="s-BEN_EMAIL" placeholder="office@beneficiar.md"></div>
       <div class="f"><label>IBAN</label><input id="s-BEN_IBAN" placeholder="MD24AG..."></div>
@@ -239,7 +251,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
       <div class="f"><label>Forma juridica</label><input id="v-VZ_FORMA" placeholder="SRL"></div>
       <div class="f full"><label>Adresa juridica</label><input id="v-VZ_ADRESA" placeholder="str. Exemplu 1, mun. Chisinau"></div>
       <div class="f"><label>IDNO</label><input id="v-VZ_IDNO" placeholder="1234567890123"></div>
-      <div class="f"><label>Director</label><input id="v-VZ_DIR" placeholder="Ion Popescu"></div>
+      <div class="admin-row"><div class="f"><label>Director</label><input id="v-VZ_DIR" placeholder="Ion Popescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('v-VZ','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('v-VZ','Dna',this)">Dna</button></div></div>
       <div class="f"><label>Telefon</label><input id="v-VZ_TEL" placeholder="+373 XX XXX XXX"></div>
       <div class="f"><label>IBAN</label><input id="v-VZ_IBAN" placeholder="MD24AG..."></div>
       <div class="f"><label>Banca</label><input id="v-VZ_BANCA" placeholder="BC Maib SA"></div>
@@ -266,7 +278,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
       <div class="f"><label>Forma juridica</label><input id="v-CU_FORMA" placeholder="SRL"></div>
       <div class="f full"><label>Adresa juridica</label><input id="v-CU_ADRESA" placeholder="str. Exemplu 2, mun. Chisinau"></div>
       <div class="f"><label>IDNO</label><input id="v-CU_IDNO" placeholder="9876543210987"></div>
-      <div class="f"><label>Director</label><input id="v-CU_DIR" placeholder="Vasile Ionescu"></div>
+      <div class="admin-row"><div class="f"><label>Director</label><input id="v-CU_DIR" placeholder="Vasile Ionescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('v-CU','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('v-CU','Dna',this)">Dna</button></div></div>
       <div class="f"><label>Telefon</label><input id="v-CU_TEL" placeholder="+373 XX XXX XXX"></div>
       <div class="f"><label>IBAN</label><input id="v-CU_IBAN" placeholder="MD24AG..."></div>
       <div class="f"><label>Banca</label><input id="v-CU_BANCA" placeholder="BC Maib SA"></div>
@@ -297,8 +309,8 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
   </div></div></div>
   <div class="card"><div class="ch"><div class="ico ic3">&#127970;</div><h2>Locatar (firma)</h2></div><div class="cb"><div class="g2">
     <div class="f"><label>Denumire firma</label><input id="la-LOT_NUME" placeholder="Firma SRL"></div>
-    <div class="f"><label>CF / IDNO</label><input id="la-LOT_CF" placeholder="1234567890123"></div>
-    <div class="f"><label>Administrator</label><input id="la-LOT_ADMIN" placeholder="Vasile Ionescu"></div>
+    <div class="f"><label>IDNO</label><input id="la-LOT_CF" placeholder="1234567890123"></div>
+    <div class="admin-row"><div class="f"><label>Administrator</label><input id="la-LOT_ADMIN" placeholder="Vasile Ionescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('la-LOT','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('la-LOT','Dna',this)">Dna</button></div></div>
     <div class="f"><label>IDNP Administrator</label><input id="la-LOT_ADMIN_IDNP" placeholder="9876543210987"></div>
     <div class="f full"><label>Adresa</label><input id="la-LOT_ADRESA" placeholder="str. Exemplu 2, mun. Chisinau"></div>
     <div class="f"><label>IBAN</label><input id="la-LOT_IBAN" placeholder="MD24AG..."></div>
@@ -344,8 +356,8 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
   </div></div>
   <div class="card"><div class="ch"><div class="ico ic3">&#127970;</div><h2>Locatar (firma chiriasa)</h2></div><div class="cb"><div class="g2">
     <div class="f"><label>Denumire firma</label><input id="ls-LOT_NUME" placeholder="Firma SRL"></div>
-    <div class="f"><label>Cod fiscal / IDNO</label><input id="ls-LOT_CF" placeholder="1234567890123"></div>
-    <div class="f"><label>Administrator</label><input id="ls-LOT_ADMIN" placeholder="Vasile Ionescu"></div>
+    <div class="f"><label>IDNO</label><input id="ls-LOT_CF" placeholder="1234567890123"></div>
+    <div class="admin-row"><div class="f"><label>Administrator</label><input id="ls-LOT_ADMIN" placeholder="Vasile Ionescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('ls-LOT','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('ls-LOT','Dna',this)">Dna</button></div></div>
     <div class="f full"><label>Adresa</label><input id="ls-LOT_ADRESA" placeholder="str. Exemplu 2, mun. Chisinau"></div>
     <div class="f"><label>IBAN</label><input id="ls-LOT_IBAN" placeholder="MD24AG..."></div>
     <div class="f"><label>BIC</label><input id="ls-LOT_BIC" placeholder="MOBBMD22"></div>
@@ -372,7 +384,13 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
     <div class="f full"><label>Sediu (adresa)</label><input id="d-SOC_SEDIU" placeholder="str. Exemplu 1, mun. Chisinau"></div>
     <div class="f"><label>Capitalul social (MDL)</label><input id="d-CAP_SOC" placeholder="5400"></div>
     <div class="f"><label>Data infiintarii entitatii</label><input id="d-DATA_INF" placeholder="01.01.2010"></div>
-    <div class="f"><label>An gestiune</label><input id="d-AN" placeholder="2024"></div>
+    <div class="f"><label>An gestiune</label>
+      <div class="type-toggle" style="margin-bottom:8px">
+        <button class="type-btn active" onclick="setAnDecizie('precedent',this)">An precedent</button>
+        <button class="type-btn" onclick="setAnDecizie('curent',this)">An curent</button>
+      </div>
+      <input id="d-AN" placeholder="2024">
+    </div>
   </div></div></div>
   <div class="card"><div class="ch"><div class="ico ic3">&#128100;</div><h2>Asociatul unic</h2></div><div class="cb"><div class="g2">
     <div class="f"><label>Nume Prenume</label><input id="d-ASOC_NUME" placeholder="Ion Popescu"></div>
@@ -385,7 +403,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
   </div></div></div>
 </div>
 
-</div>
+
 
 <!-- PROCES-VERBAL DIVIDENDE -->
 <div id="form-pverbal" class="hidden">
@@ -394,7 +412,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
     <div class="f"><label>Data</label><input id="pv-DATA" placeholder="01.01.2025"></div>
   </div></div></div>
 
-  <div class="card"><div class="ch"><div class="ico ic2">&#127970;</div><h2>Societatea</h2></div><div class="cb"><div class="g2">
+  <div class="card"><div class="ch"><div class="ico ic2">&#127970;</div><h2>Societatea</h2></div><div class="cb"><div class="g2 compact-wrap">
     <div class="f"><label>Denumire firma</label><input id="pv-SOC_NUME" placeholder="Firma Mea"></div>
     <div class="f"><label>IDNO</label><input id="pv-SOC_IDNO" placeholder="1234567890123"></div>
     <div class="f"><label>An gestiune</label>
@@ -409,38 +427,120 @@ body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;min-height:100vh;}
 
   <div class="card"><div class="ch"><div class="ico ic3">&#128100;</div><h2>Asociatul 1</h2></div><div class="cb">
     <div class="type-toggle">
-      <button class="type-btn active" onclick="setType('pv-A1','m',this)">Masculin (Dn-lui)</button>
-      <button class="type-btn" onclick="setType('pv-A1','f',this)">Feminin (Dn-nei)</button>
+      <button class="type-btn active" onclick="setType('pv-A1','m',this)">Dl (Masculin)</button>
+      <button class="type-btn" onclick="setType('pv-A1','f',this)">Dna (Feminin)</button>
     </div>
     <div class="g2">
       <div class="f"><label>Nume Prenume</label><input id="pv-A1_NUME" placeholder="Ion Popescu"></div>
       <div class="f"><label>Cota capital social (lei)</label><input id="pv-A1_COTA_LEI" placeholder="2700"></div>
       <div class="f"><label>Cota capital social (%)</label><input id="pv-A1_COTA_PROC" placeholder="50"></div>
       <div class="f"><label>Dividende nete spre plata (lei)</label><input id="pv-A1_NET" placeholder="100000" oninput="calcDiv('A1')"></div>
-      <div class="f"><label>Impozit 6% (lei) — auto</label><input id="pv-A1_IMPOZIT" placeholder="0" readonly style="background:#f1f5f9;"></div>
-      <div class="f"><label>Dividende brute (lei) — auto</label><input id="pv-A1_BRUT" placeholder="0" readonly style="background:#f1f5f9;"></div>
+      <div class="f"><label>Impozit 6% — auto</label><input id="pv-A1_IMPOZIT" placeholder="0" readonly style="background:#f1f5f9;"></div>
+      <div class="f"><label>Brut (lei) — auto</label><input id="pv-A1_BRUT" placeholder="0" readonly style="background:#f1f5f9;"></div>
     </div>
   </div></div>
 
   <div class="card"><div class="ch"><div class="ico ic4">&#128100;</div><h2>Asociatul 2</h2></div><div class="cb">
     <div class="type-toggle">
-      <button class="type-btn active" onclick="setType('pv-A2','m',this)">Masculin (Dn-lui)</button>
-      <button class="type-btn" onclick="setType('pv-A2','f',this)">Feminin (Dn-nei)</button>
+      <button class="type-btn active" onclick="setType('pv-A2','m',this)">Dl (Masculin)</button>
+      <button class="type-btn" onclick="setType('pv-A2','f',this)">Dna (Feminin)</button>
     </div>
     <div class="g2">
       <div class="f"><label>Nume Prenume</label><input id="pv-A2_NUME" placeholder="Vasile Ionescu"></div>
       <div class="f"><label>Cota capital social (lei)</label><input id="pv-A2_COTA_LEI" placeholder="2700"></div>
       <div class="f"><label>Cota capital social (%)</label><input id="pv-A2_COTA_PROC" placeholder="50"></div>
       <div class="f"><label>Dividende nete spre plata (lei)</label><input id="pv-A2_NET" placeholder="100000" oninput="calcDiv('A2')"></div>
-      <div class="f"><label>Impozit 6% (lei) — auto</label><input id="pv-A2_IMPOZIT" placeholder="0" readonly style="background:#f1f5f9;"></div>
-      <div class="f"><label>Dividende brute (lei) — auto</label><input id="pv-A2_BRUT" placeholder="0" readonly style="background:#f1f5f9;"></div>
+      <div class="f"><label>Impozit 6% — auto</label><input id="pv-A2_IMPOZIT" placeholder="0" readonly style="background:#f1f5f9;"></div>
+      <div class="f"><label>Brut (lei) — auto</label><input id="pv-A2_BRUT" placeholder="0" readonly style="background:#f1f5f9;"></div>
     </div>
   </div></div>
 </div>
 
+<!-- DECIZIE VANZARE -->
+<div id="form-vanzare_dec" class="hidden">
+  <div class="card"><div class="ch"><div class="ico ic1">&#128197;</div><h2>Datele deciziei</h2></div><div class="cb"><div class="g2">
+    <div class="f"><label>Numarul deciziei</label><input id="vd-NR" placeholder="1"></div>
+    <div class="f"><label>Data deciziei</label><input id="vd-DATA" placeholder="01.01.2025"></div>
+  </div></div></div>
+  <div class="card"><div class="ch"><div class="ico ic2">&#127970;</div><h2>Societatea</h2></div><div class="cb"><div class="g2">
+    <div class="f"><label>Denumire firma</label><input id="vd-SOC_NUME" placeholder="Firma Mea"></div>
+    <div class="f"><label>IDNO</label><input id="vd-SOC_IDNO" placeholder="1234567890123"></div>
+    <div class="f"><label>Data infiintarii</label><input id="vd-DATA_INF" placeholder="01.01.2010"></div>
+    <div class="f full"><label>Sediu</label><input id="vd-SOC_SEDIU" placeholder="str. Exemplu 1, mun. Chisinau"></div>
+  </div></div></div>
+  <div class="card"><div class="ch"><div class="ico ic3">&#128100;</div><h2>Asociatul Unic</h2></div><div class="cb"><div class="g2">
+    <div class="f"><label>Nume Prenume</label><input id="vd-ASOC_NUME" placeholder="Ion Popescu"></div>
+    <div class="f"><label>IDNP</label><input id="vd-ASOC_IDNP" placeholder="1234567890123"></div>
+  </div></div></div>
+  <div class="card"><div class="ch"><div class="ico ic5">&#128179;</div><h2>Obiectul vanzarii</h2></div><div class="cb">
+    <div class="f" style="margin-bottom:11px"><label>Ce se vinde (descriere generala)</label><input id="vd-OBIECT_GEN" placeholder="activelor fixe, bunurilor materiale..."></div>
+    <div class="f"><label>Specificatia bunurilor (un bun pe rand)</label><textarea id="vd-OBIECT_DET" placeholder="- Autoturism Toyota Camry, an 2018&#10;- Echipament IT, HP Server..." style="min-height:80px"></textarea></div>
+  </div></div>
+</div>
+
+<!-- PACHET ANGAJARE -->
+<div id="form-angajare" class="hidden">
+
+  <div class="card"><div class="ch"><div class="ico ic1">&#128197;</div><h2>Date generale</h2></div><div class="cb"><div class="g2">
+    <div class="f"><label>Data documentelor</label><input id="ang-DATA" placeholder="01.01.2025"><span class="hint">Apare in toate 4 documentele</span></div>
+    <div class="f"><label>Data inceperii activitatii</label><input id="ang-DATA_START" placeholder="01.02.2025"></div>
+    <div class="f"><label>Functia</label><input id="ang-FUNCTIE" placeholder="Programator"></div>
+    <div class="f"><label>Locul de munca</label><input id="ang-LOC_MUNCA" placeholder="mun. Chisinau / la distanta"></div>
+    <div class="f"><label>Numarul Contractului de Munca</label><input id="ang-CIM_NR" placeholder="1"></div>
+  </div></div></div>
+
+  <div class="card"><div class="ch"><div class="ico ic2">&#127970;</div><h2>Angajator</h2></div><div class="cb"><div class="g2">
+    <div class="f"><label>Denumire firma</label><input id="ang-ANG_NUME" placeholder="Firma Mea"></div>
+    <div class="f"><label>IDNO</label><input id="ang-ANG_IDNO" placeholder="1234567890123"></div>
+    <div class="f full"><label>Adresa juridica</label><input id="ang-ANG_ADRESA" placeholder="str. Exemplu 1, mun. Chisinau"></div>
+    <div class="admin-row full"><div class="f"><label>Administrator</label><input id="ang-ANG_ADMIN" placeholder="Ion Popescu"></div><div class="gen-toggle"><button class="gen-btn active" onclick="setGen('ang-ANG','Dl',this)">Dl</button><button class="gen-btn" onclick="setGen('ang-ANG','Dna',this)">Dna</button></div></div>
+    <div class="f"><label>IBAN</label><input id="ang-ANG_IBAN" placeholder="MD24AG..."></div>
+    <div class="f"><label>BIC</label><input id="ang-ANG_BIC" placeholder="AGRNMD2X"></div>
+  </div></div></div>
+
+  <div class="card"><div class="ch"><div class="ico ic3">&#128100;</div><h2>Salariat</h2></div><div class="cb">
+    <div class="type-toggle"><button class="type-btn active" onclick="setType('ang-SAL','m',this)">Masculin (dl / Subsemnatul)</button><button class="type-btn" onclick="setType('ang-SAL','f',this)">Feminin (dna / Subsemnata)</button></div>
+    <div class="g2" style="margin-top:10px">
+      <div class="f"><label>Nume Prenume</label><input id="ang-SAL_NUME" placeholder="Vasile Ionescu"></div>
+      <div class="f"><label>IDNP</label><input id="ang-SAL_IDNP" placeholder="9876543210987"></div>
+      <div class="f full"><label>Domiciliu</label><input id="ang-SAL_DOM" placeholder="mun. Chisinau, str. Exemplu 2"></div>
+      <div class="f"><label>Seria buletin</label><input id="ang-SAL_BULETIN" placeholder="A 12345678"></div>
+      <div class="f"><label>Eliberat de oficiul</label><input id="ang-SAL_OFICIU" placeholder="Chisinau"></div>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="ch"><div class="ico ic4">&#9881;</div><h2>1.3 Munca este</h2></div><div class="cb">
+    <div class="type-toggle">
+      <button class="type-btn active" onclick="setMunca('ang','baza',this)">De baza</button>
+      <button class="type-btn" onclick="setMunca('ang','cumul',this)">Prin cumul</button>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="ch"><div class="ico ic5">&#128197;</div><h2>1.4 Durata + Salariu</h2></div><div class="cb"><div class="g3">
+    <div class="f full">
+      <label>Durata Contractului</label>
+      <div class="type-toggle" style="margin-bottom:10px">
+        <button class="type-btn active" onclick="setDurata('ang','nedeterminata',this)">Nedeterminata</button>
+        <button class="type-btn" onclick="setDurata('ang','determinata',this)">Determinata</button>
+      </div>
+      <div id="ang-durata-det" class="f hidden"><input id="ang-DURATA_DET" placeholder="pana la data de 31.12.2025"></div>
+    </div>
+    <div class="f"><label>Salariul (cifre, lei)</label><input id="ang-SALARIU_C" placeholder="15000"></div>
+    <div class="f"><label>Salariul (litere, lei)</label><input id="ang-SALARIU_L" placeholder="cincisprezece mii"></div>
+    <div class="f"><label>Zile lucratoare/sapt.</label><input id="ang-ZILE" placeholder="5"></div>
+    <div class="f"><label>Ore/zi</label><input id="ang-ORE" placeholder="8"></div>
+    <div class="f"><label>Regim odihna</label><input id="ang-ODIHNA" placeholder="sambata si duminica"></div>
+    <div class="f"><label>Perioada de proba (sau gol)</label><input id="ang-PROBA" placeholder="3 luni"></div>
+  </div></div></div>
+
+</div>
+
 <button class="btn" onclick="genereaza()" id="btnGen">&#11015; Descarca Document Word (.docx)</button>
+
+</div>
 </div>
 <div class="toast" id="toast"></div>
+
 <script>
 var docx = (function(exports) {
   "use strict";var __defProp = Object.defineProperty;
@@ -7983,9 +8083,9 @@ var __async = (__this, __arguments, generator) => {
           CLOSE_TAG_SAW_WHITE: S++,
           // </a   >
           SCRIPT: S++,
-          // <script> ...
+          // <scri"+"pt> ...
           SCRIPT_ENDING: S++
-          // <script> ... <
+          // <scri"+"pt> ... <
         };
         sax2.XML_ENTITIES = {
           "amp": "&",
@@ -23514,6 +23614,7 @@ var __async = (__this, __arguments, generator) => {
   exports.uniqueUuid = uniqueUuid;
   exports.universalMeasureValue = universalMeasureValue;
   exports.unsignedDecimalNumber = unsignedDecimalNumber;
+  exports.JSZip = JSZip;
   Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
   return exports;
 })({});
@@ -23533,6 +23634,17 @@ function setType(prefix, type, btn) {
   if(fDiv) fDiv.classList.toggle('hidden', type !== 'f');
   // Store selection
   window['_type_'+prefix] = type;
+}
+
+function setGen(prefix, val, btn) {
+  var toggle = btn.closest('.gen-toggle') || btn.parentElement;
+  toggle.querySelectorAll('.gen-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  window['_gen_'+prefix] = val;
+}
+
+function getGen(prefix) {
+  return window['_gen_'+prefix] || 'Dl';
 }
 
 function calcDiv(idx) {
@@ -23558,6 +23670,17 @@ function calcDecizie() {
   document.getElementById('d-IMPOZIT').value = fmt(impozit);
 }
 
+function setAnDecizie(tip, btn) {
+  var parent = btn.parentElement;
+  parent.querySelectorAll('.type-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var inp = document.getElementById('d-AN');
+  var year = new Date().getFullYear();
+  inp.value = tip === 'curent' ? String(year) : String(year - 1);
+  window['_d_an_tip'] = tip;
+  inp.focus();
+}
+
 function setAnPV(tip, btn) {
   var parent = btn.parentElement;
   parent.querySelectorAll('.type-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -23566,7 +23689,9 @@ function setAnPV(tip, btn) {
   inp.readOnly = false;
   inp.style.background = '#fafafa';
   inp.style.cursor = 'text';
-  inp.value = tip === 'curent' ? String(new Date().getFullYear()) : String(new Date().getFullYear()-1);
+  var year = new Date().getFullYear();
+  inp.value = tip === 'curent' ? String(year) : String(year - 1);
+  window['_pv_an_tip'] = tip;
   inp.focus();
 }
 
@@ -23669,7 +23794,7 @@ function genPreluare(){
     pp([r('de preluare a datoriei',true,24)],AlignmentType.CENTER,160),
     dateRow(D),
     pp([r('PARTILE CONTRACTANTE',true)],AlignmentType.CENTER,120),
-    pm([['"'+CR_DEN+'" '+CR_F,false],[', IDNO ',false],[CR_ID,true],[', reprezentata de administratorul ',false],[CR_AD,true],[', care actioneaza in temeiul statutului societatii, numita in continuare "CREDITOR".',false]],AlignmentType.BOTH,120,720),
+    pm([['"'+CR_DEN+'" '+CR_F,false],[', IDNO ',false],[CR_ID,true],[', reprezentata de administratorul '+getGen('p-CR')+' ',false],[CR_AD,true],[', care actioneaza in temeiul statutului societatii, numita in continuare "CREDITOR".',false]],AlignmentType.BOTH,120,720),
     pm([[VD,true],[', IDNP ',false],[VI,true],[', care actioneaza in baza deciziei de inregistrare, denumita in continuare "VECHIUL DEBITOR", si ',false],[ND,true],[', IDNP ',false],[NI,true],[', numit in continuare "NOUL DEBITOR", in baza prevederilor legislatiei Republicii Moldova, manifestandu-si in mod liber si nevatamat comunul acord de vointa, au incheiat prezentul Contract de preluare a datoriei (in continuare "Contract"), privind urmatoarele:',false]],AlignmentType.BOTH,200,720),
     hh('I. OBIECTUL CONTRACTULUI'),
     pm([['1.1 In baza prezentului contract, NOUL DEBITOR preia datoria in cuantum de ',false],[SUMA,true],[' pe care VECHIUL DEBITOR o are fata de CREDITOR, iar CREDITORUL accepta schimbarea in obligatie a VECHIUL DEBITOR cu noul DEBITOR, in partea referitoare la datoria de baza mentionata.',false]]),
@@ -23720,7 +23845,7 @@ function genPreluare(){
     pp([r('de preluare a datoriei',true,24)],AlignmentType.CENTER,160),
     dateRow(D),
     pp([r('Intru executarea contractului de preluare a datoriei,')],AlignmentType.BOTH,120),
-    pm([['"'+CR_DEN+'"',false],[' '+CR_F+', IDNO ',false],[CR_ID,true],[', reprezentata de administratorul '+CR_AD+', care actioneaza in temeiul statutului societatii, numita in continuare "CREDITOR",',false]],AlignmentType.BOTH,80,720),
+    pm([['"'+CR_DEN+'"',false],[' '+CR_F+', IDNO ',false],[CR_ID,true],[', reprezentata de administratorul '+getGen('p-CR')+' '+CR_AD+', care actioneaza in temeiul statutului societatii, numita in continuare "CREDITOR",',false]],AlignmentType.BOTH,80,720),
     pm([[VD,true],[', IDNP '+VI+', denumita in continuare "VECHIUL DEBITOR", si ',false],[ND,true],[', IDNP '+NI+', numit in continuare "NOUL DEBITOR",',false]],AlignmentType.BOTH,120,720),
     pp([r('manifestandu-si in mod liber si nevatamat comunul acord de vointa, au incheiat prezentul act care atesta urmatoarele:')],AlignmentType.BOTH,120),
     pp([r('- In baza contractului de preluare a datoriei, din momentul semnarii prezentului Act, partile inregistreaza in evidenta contabila urmatoarele operatiuni.')],AlignmentType.BOTH,120),
@@ -23757,7 +23882,7 @@ function genImprumut(){
     return [{t:titlu,b:true},{t:v('i-IMP_NUME'),b:true},{t:'IDNP: '+v('i-IMP_IDNP')},{t:''},{t:'Semnatura: ___________________'}];
   }
   function tblS2(p) {
-    if(p.tip==='j') return [{t:'IMPRUMUTAT',b:true},{t:'"'+p.nume+'" SRL',b:true},{t:'IDNO: '+p.idno},{t:'Administrator: '+p.admin},{t:''},{t:'Semnatura: ___________________'},{t:'L.S.'}];
+    if(p.tip==='j') return [{t:'IMPRUMUTAT',b:true},{t:'"'+p.nume+'" SRL',b:true},{t:'IDNO: '+p.idno},{t:'Administrator: '+getGen('i-SOC')+' '+p.admin},{t:''},{t:'Semnatura: ___________________'},{t:'L.S.'}];
     return [{t:'IMPRUMUTAT',b:true},{t:v('i-SOC_FIZ_NUME'),b:true},{t:'IDNP: '+v('i-SOC_FIZ_IDNP')},{t:v('i-SOC_FIZ_DOM')},{t:''},{t:'Semnatura: ___________________'}];
   }
 
@@ -23767,21 +23892,21 @@ function genImprumut(){
     dateRow(D),
     pm([[IMP_NUME,true],[', '+IMP_ID+', numit in continuare "Imprumutator", pe de o parte,',false]],AlignmentType.BOTH,80,0),
     pp([r('si')],AlignmentType.BOTH,80),
-    pm([[SOC_NUME,true],[', '+SOC_ID+(SOC_AD?', reprezentata de Administrator, '+SOC_AD:'')+', numita in continuare "Imprumutat", pe de alta parte, numite in continuare "Parti" au convenit asupra urmatoarelor:',false]],AlignmentType.BOTH,160,0),
+    pm([[SOC_NUME,true],[', '+SOC_ID+(SOC_AD?', reprezentata de Administrator, '+getGen('i-SOC')+' '+SOC_AD:'')+', numita in continuare "Imprumutat", pe de alta parte, numite in continuare "Parti" au convenit asupra urmatoarelor:',false]],AlignmentType.BOTH,160,0),
     hh('I. OBIECTUL CONTRACTULUI'),
-    pm([['1.1 Imprumutătorul transmite in conditiile prezentului contract in proprietate Imprumutatului mijloace banesti in suma de ',false],[SUMA,true],[' pentru a fi folosite in scopuri administrative ale entitatii si Imprumutatul se obliga sa restituie Imprumutătorului aceeasi suma de bani (suma imprumutata).',false]]),
+    pm([['1.1 Imprumut\u0103torul transmite in conditiile prezentului contract in proprietate Imprumutatului mijloace banesti in suma de ',false],[SUMA,true],[' pentru a fi folosite in scopuri administrative ale entitatii si Imprumutatul se obliga sa restituie Imprumut\u0103torului aceeasi suma de bani (suma imprumutata).',false]]),
     pp([r('1.2 Suma imprumutului se ofera Imprumutatului pe un termen de '+TER+' luni din data prezentului contract.')]),
     pp([r('1.3 Prezentul contract nu prevede plata dobanzii la imprumutul acordat de catre Imprumutator.')],AlignmentType.BOTH,200),
     hh('II. DREPTURILE SI OBLIGATIILE PARTILOR'),
-    pp([r('2.1 Imprumutătorul se obliga sa-i transmita Imprumutatului suma mijloacelor banesti indicate in pct. 1.1. al prezentului contract prin virament pe contul imprumutatului sau in numerar.')]),
+    pp([r('2.1 Imprumut\u0103torul se obliga sa-i transmita Imprumutatului suma mijloacelor banesti indicate in pct. 1.1. al prezentului contract prin virament pe contul imprumutatului sau in numerar.')]),
     pp([r('2.2 Data de acordare a imprumutului se considera data parvenirii mijloacelor banesti pe contul Imprumutatului (data receptionarii banilor).')]),
     pp([r('2.3 In urma verificarii folosirii mijloacelor banesti conform destinatiei, Imprumutatul este obligat:')]),
     bl('sa-l instiinteze pe imprumutator despre fiecare act juridic efectuat cu mijloacele banesti;'),
     bl('sa prezinte documente (contracte, acte de primire-predare, facturi etc.) ce confirma executarea actelor juridice;'),
-    bl('sa prezinte Imprumutătorului spre informare documentatia financiara si contabila privind mijloacele banesti.'),
+    bl('sa prezinte Imprumut\u0103torului spre informare documentatia financiara si contabila privind mijloacele banesti.'),
     pp([r('2.4 Imprumutatul este in drept sa foloseasca mijloacele banesti in scopul dezvoltarii activitatii intreprinderii.')]),
-    pp([r('2.5 Daca la expirarea termenului indicat in pct. 1.2., Imprumutatul nu a restituit in intregime Imprumutătorului suma nominala primita conform prezentului contract, termenul contractului se prelungeste pentru aceeasi perioada mentionata in pct. 1.2.')]),
-    pp([r('2.6 Data de executare de catre Imprumutat a obligatiei de restituire a sumei imprumutului se considera data incasarii mijloacelor banesti pe contul Imprumutătorului sau in numerar.')],AlignmentType.BOTH,200),
+    pp([r('2.5 Daca la expirarea termenului indicat in pct. 1.2., Imprumutatul nu a restituit in intregime Imprumut\u0103torului suma nominala primita conform prezentului contract, termenul contractului se prelungeste pentru aceeasi perioada mentionata in pct. 1.2.')]),
+    pp([r('2.6 Data de executare de catre Imprumutat a obligatiei de restituire a sumei imprumutului se considera data incasarii mijloacelor banesti pe contul Imprumut\u0103torului sau in numerar.')],AlignmentType.BOTH,200),
     hh('III. DISPOZITII FINALE'),
     pp([r('3.1 Prezentul contract este intocmit in doua exemplare, cate unul pentru fiecare parte.')]),
     pp([r('3.2 Contractul poate fi modificat si completat cu acordul Partilor. Toate modificarile si completarile urmeaza sa fie intocmite in scris si semnate de catre Parti.')]),
@@ -23799,23 +23924,23 @@ function genServicii(){
   var D=v('s-DATA'),NR=v('s-NR'),SERV=v('s-SERVICII'),PRET=v('s-PRET'),DL=v('s-DATA_LIT');
   var PR=vParte('s-PR','j'), BEN=vParte('s-BEN','j');
 
-  function introP(p, rol) {
-    if(p.tip==='j') return pm([['"'+p.nume+'" '+p.forma,true],[' cu adresa juridica '+p.adresa+', Republica Moldova, CF ',false],[p.idno,true],[', reprezentata de Administratorul, Dl ',false],[p.admin,true],[', denumita in continuare «Prestator»,',false]],AlignmentType.BOTH,80,0);
-    return pm([[p.nume,true],[', IDNP ',false],[p.idnp,true],[', domiciliat '+p.dom+', denumit in continuare «'+rol+'»,',false]],AlignmentType.BOTH,80,0);
+  function introP(p, rol, genPfx) {
+    if(p.tip==='j') return pm([['"'+p.nume+'" '+p.forma,true],[' cu adresa juridica '+p.adresa+', Republica Moldova, IDNO ',false],[p.idno,true],[', reprezentata de Administratorul, '+getGen(genPfx)+' ',false],[p.admin,true],[', denumita in continuare \u00ab'+rol+'\u00bb,',false]],AlignmentType.BOTH,80,0);
+    return pm([[p.nume,true],[', IDNP ',false],[p.idnp,true],[', domiciliat '+p.dom+', denumit in continuare \u00ab'+rol+'\u00bb,',false]],AlignmentType.BOTH,80,0);
   }
-  function tblS(p, titlu) {
-    if(p.tip==='j') return [{t:titlu+':',b:true},{t:'"'+p.nume+'" '+p.forma,b:true},{t:p.adresa},{t:'CF: '+p.idno},{t:'Tel: '+p.tel},{t:'E-mail: '+p.email},{t:'IBAN: '+p.iban},{t:'BIC: '+p.bic},{t:''},{t:'Administrator: '+p.admin},{t:''},{t:'Semnatura: ___________________'},{t:'L.S.'}];
+  function tblS(p, titlu, genPfx) {
+    if(p.tip==='j') return [{t:titlu+':',b:true},{t:'"'+p.nume+'" '+p.forma,b:true},{t:p.adresa},{t:'IDNO: '+p.idno},{t:'Tel: '+p.tel},{t:'E-mail: '+p.email},{t:'IBAN: '+p.iban},{t:'BIC: '+p.bic},{t:''},{t:'Administrator: '+getGen(genPfx||'s-PR')+' '+p.admin},{t:''},{t:'Semnatura: ___________________'},{t:'L.S.'}];
     return [{t:titlu+':',b:true},{t:p.nume,b:true},{t:'IDNP: '+p.idnp},{t:p.dom},{t:'Tel: '+p.tel},{t:'E-mail: '+p.email},{t:'IBAN: '+p.iban},{t:'BIC: '+p.bic},{t:''},{t:'Semnatura: ___________________'}];
   }
 
   var ch=[
     pp([r('C O N T R A C T',true,26)],AlignmentType.CENTER,40),
     pp([r('de prestare a serviciilor',true,24)],AlignmentType.CENTER,40),
-    pp([r('№ '+NR)],AlignmentType.CENTER,160),
+    pp([r('\u2116 '+NR)],AlignmentType.CENTER,160),
     dateRow(D),
-    introP(PR,'Prestator'),
+    introP(PR,'Prestator','s-PR'),
     pp([r('pe de o parte si')],AlignmentType.BOTH,80),
-    introP(BEN,'Beneficiar'),
+    introP(BEN,'Beneficiar','s-BEN'),
     pp([r('pe de alta parte, au incheiat prezentul contract cu privire la urmatoarele:')],AlignmentType.BOTH,200,0),
     hh('I. OBIECTUL CONTRACTULUI'),
     pm([['1.1 In conditiile prezentului Contract, "Prestatorul" va presta servicii de ',false],[SERV,true],['.',false]]),
@@ -23854,7 +23979,7 @@ function genServicii(){
     pm([['6.5 Prezentul Contract intra in vigoare la data semnarii si reprezinta acordul de vointa al ambelor parti, fiind semnat astazi ',false],[DL,true],['.',false]],AlignmentType.BOTH,200),
     hh('VII. ADRESELE JURIDICE SI RECHIZITELE PARTILOR'),
     pp([r('')],AlignmentType.LEFT,60),
-    mkTbl(tblS(PR,'PRESTATOR'), tblS(BEN,'BENEFICIAR'))
+    mkTbl(tblS(PR,'PRESTATOR','s-PR'), tblS(BEN,'BENEFICIAR','s-BEN'))
   ];
   return mkDoc(ch);
 }
@@ -23865,12 +23990,12 @@ function genVanzare(){
   var D=v('v-DATA'),NR=v('v-NR'),OB=v('v-OBIECT'),PRET=v('v-PRET');
   var VZ=vParte('v-VZ','j'), CU=vParte('v-CU','j');
 
-  function introV(p, rol) {
-    if(p.tip==='j') return pm([['"'+p.nume+'" '+p.forma,true],[' cu adresa juridica '+p.adresa+', denumita in continuare «Vanzator», reprezentata de Directorul, ',false],[p.admin,true],[', pe de o parte,',false]],AlignmentType.BOTH,80,0);
-    return pm([[p.nume,true],[', IDNP ',false],[p.idnp,true],[', domiciliat '+p.dom+', denumit in continuare «'+rol+'», pe de o parte,',false]],AlignmentType.BOTH,80,0);
+  function introV(p, rol, genPfx) {
+    if(p.tip==='j') return pm([['"'+p.nume+'" '+p.forma,true],[' cu adresa juridica '+p.adresa+', denumita in continuare \u00ab'+rol+'\u00bb, reprezentata de Directorul, '+getGen(genPfx)+' ',false],[p.admin,true],[', pe de o parte,',false]],AlignmentType.BOTH,80,0);
+    return pm([[p.nume,true],[', IDNP ',false],[p.idnp,true],[', domiciliat '+p.dom+', denumit in continuare \u00ab'+rol+'\u00bb, pe de o parte,',false]],AlignmentType.BOTH,80,0);
   }
   function tblV(p, titlu) {
-    if(p.tip==='j') return [{t:titlu+':',b:true},{t:'"'+p.nume+'" '+p.forma,b:true},{t:p.adresa},{t:'IDNO: '+p.idno},{t:'Tel: '+p.tel},{t:'IBAN: '+p.iban},{t:'Banca: '+p.banca+' BIC: '+p.bic},{t:''},{t:'Director: '+p.admin},{t:''},{t:'Semnatura: ___________________'},{t:'L.S.'}];
+    if(p.tip==='j') return [{t:titlu+':',b:true},{t:'"'+p.nume+'" '+p.forma,b:true},{t:p.adresa},{t:'IDNO: '+p.idno},{t:'Tel: '+p.tel},{t:'IBAN: '+p.iban},{t:'Banca: '+p.banca+' BIC: '+p.bic},{t:''},{t:'Director: '+getGen(p.tip==='j'?'v-VZ':'v-CU')+' '+p.admin},{t:''},{t:'Semnatura: ___________________'},{t:'L.S.'}];
     return [{t:titlu+':',b:true},{t:p.nume,b:true},{t:'IDNP: '+p.idnp},{t:p.dom},{t:'Tel: '+p.tel},{t:'IBAN: '+p.iban},{t:'Banca: '+p.banca+' BIC: '+p.bic},{t:''},{t:'Semnatura: ___________________'}];
   }
 
@@ -23878,10 +24003,10 @@ function genVanzare(){
     pp([r('Contract',true,26)],AlignmentType.CENTER,40),
     pp([r('de vanzare-cumparare marfuri nr. '+NR,true,24)],AlignmentType.CENTER,160),
     dateRow(D),
-    introV(VZ,'Vanzator'),
+    introV(VZ,'Vanzator','v-VZ'),
     pp([r('si')],AlignmentType.BOTH,80),
-    introV(CU,'Cumparator'),
-    pp([r('impreuna numite «Parti», au incheiat prezentul Contract, in conditiile care urmeaza:')],AlignmentType.BOTH,160,0),
+    introV(CU,'Cumparator','v-CU'),
+    pp([r('impreuna numite \u00abParti\u00bb, au incheiat prezentul Contract, in conditiile care urmeaza:')],AlignmentType.BOTH,160,0),
     hh('CAP. II OBIECTUL CONTRACTULUI'),
     pm([['Art.2.1 Vanzatorul se obliga sa vanda si Cumparatorul se obliga sa cumpere marfurile (',false],[OB,true],['), in schimbul achitarii de catre Cumparator, Vanzatorului, a contravalorii acestor marfuri.',false]]),
     pp([r('Art.2.2 Pe parcursul desfasurarii prezentului contract, marfurile, cantitatile, calitatile sau alte date de identificare ale acestora pot fi modificate prin act aditional la prezentul contract, scris si semnat de parti.')],AlignmentType.BOTH,200),
@@ -23924,7 +24049,7 @@ function genLocauto(){
     dateRow(D),
     hh('I. PARTILE CONTRACTANTE'),
     pm([[LOC,true],[' identificat prin IDNP: ',false],[LOC_ID,true],[', domiciliat '+LOC_DOM+', in calitate de "Locator", si',false]],AlignmentType.BOTH,80,0),
-    pm([['"'+LOT+'" S.R.L.',true],[' identificata prin CF ',false],[LOT_CF,true],[', reprezentata de administratorul ',false],[LOT_AD,true],[' IDNP ',false],[LOT_AID,true],[', in calitate de "Locatar",',false]],AlignmentType.BOTH,80,0),
+    pm([['"'+LOT+'" S.R.L.',true],[' identificata prin IDNO ',false],[LOT_CF,true],[', reprezentata de administratorul '+getGen('la-LOT')+' ',false],[LOT_AD,true],[' IDNP ',false],[LOT_AID,true],[', in calitate de "Locatar",',false]],AlignmentType.BOTH,80,0),
     pp([r('in continuare fiind numite impreuna Parti, au convenit asupra fiecarui termen, precum si asupra continutului in ansamblu al prezentului contract de locatiune:')],AlignmentType.BOTH,160),
     hh('II. OBIECTUL CONTRACTULUI'),
     pp([r('2.1 Obiectul contractului il constituie automobilul:')]),
@@ -23957,7 +24082,7 @@ function genLocauto(){
     pp([r('')],AlignmentType.LEFT,60),
     mkTbl(
       [{t:'LOCATOR',b:true},{t:LOC,b:true},{t:'IDNP: '+LOC_ID},{t:'Domiciliat: '+LOC_DOM},{t:''},{t:'Semnatura: ___________________'}],
-      [{t:'LOCATAR',b:true},{t:LOT+' SRL',b:true},{t:'c/f: '+LOT_CF},{t:'Adresa: '+LOT_ADR},{t:'IBAN: '+LOT_IB},{t:'BIC: '+LOT_BIC},{t:'Administrator: '+LOT_AD},{t:''},{t:'Semnatura: ___________________'}]
+      [{t:'LOCATAR',b:true},{t:LOT+' SRL',b:true},{t:'IDNO: '+LOT_CF},{t:'Adresa: '+LOT_ADR},{t:'IBAN: '+LOT_IB},{t:'BIC: '+LOT_BIC},{t:'Administrator: '+LOT_AD},{t:''},{t:'Semnatura: ___________________'}]
     )
   ];
   return mkDoc(ch);
@@ -23980,7 +24105,7 @@ function genLocspatiu(){
     pp([r('CONTRACT DE LOCATIUNE',true,26)],AlignmentType.CENTER,160),
     dateRow(D,'mun. Chisinau'),
     pm([[LOC_NUME,true],[', '+LOC_LABEL+' ',false],[LOC_ID,true],[', cu adresa '+LOC_ADR2+', numita in continuare "Locator", pe de o parte, si',false]],AlignmentType.BOTH,80,0),
-    pm([['"'+LOT+'" S.R.L.',true],[' cod fiscal ',false],[LOT_CF,true],[', reprezentata prin Administratorul, Dl ',false],[LOT_AD,true],[', in calitate de "Locatar",',false]],AlignmentType.BOTH,80,0),
+    pm([['"'+LOT+'" S.R.L.',true],[' IDNO ',false],[LOT_CF,true],[', reprezentata prin Administratorul, '+getGen('ls-LOT')+' ',false],[LOT_AD,true],[', in calitate de "Locatar",',false]],AlignmentType.BOTH,80,0),
     pp([r('in continuare fiind numite impreuna Parti, au convenit asupra fiecarui termen, precum si asupra continutului in ansamblu al prezentului contract de locatiune.')],AlignmentType.BOTH,160),
     hh('I. OBIECTUL CONTRACTULUI'),
     pp([r('1.1 Locatorul se obliga sa transmita Locatarului in folosinta temporara spatiul indicat in pct. 1.2. al prezentului contract, iar Locatarul se obliga sa achite in favoarea Locatorului chiria si alte plati prevazute de prezentul contract in conditiile si termenele stabilite.')]),
@@ -24042,7 +24167,7 @@ function genDecizie(){
     // Titlu - toate rand bold
     pc([rb('Decizie nr. '),rb(NR)], 100),
     pc([rb('al Asociatului Unic')], 100),
-    pc([rb('Societății cu Răspundere Limitată „'),rb(SOC),rb('” SRL')], 100),
+    pc([rb('Societ\u0103\u021bii cu R\u0103spundere Limitat\u0103 \u201e'),rb(SOC),rb('\u201d SRL')], 100),
     pc([rn('IDNO: '),rb(SOC_ID),rn(' din '),rb(v('d-DATA_INF'))], 360),
 
     // Data / Sediu / Capital
@@ -24054,25 +24179,25 @@ function genDecizie(){
     // Corp text - Subsemnatul
     pj([
       rn('Subsemnatul '),rb(ASOC),
-      rn(', deținător a 100 % din capitalul social, în calitate de asociat unic la entitatea S.R.L. „'),
-      rb(SOC),rn('” din '),rn(SEDIU),
-      rn(', astăzi '),rn(D),rn(' am decis următoarele:')
+      rn(', de\u021bin\u0103tor a 100 % din capitalul social, \u00een calitate de asociat unic la entitatea S.R.L. \u201e'),
+      rb(SOC),rn('\u201d din '),rn(SEDIU),
+      rn(', ast\u0103zi '),rn(D),rn(' am decis urm\u0103toarele:')
     ], 280, 720),
 
     // Punctul cu dividende
     pj([
-      rn('1. Profitul net înregistrat de societate pe parcursul anului de gestiune '),
+      rn('1. Profitul net \u00eenregistrat de societate pe parcursul '+(window['_d_an_tip']==='curent' ? 'anului curent ' : 'anului de gestiune ')),
       rn(AN),
-      rn(', să fie repartizat în mărime de '),
+      rn(', s\u0103 fie repartizat \u00een m\u0103rime de '),
       rn(PROF),
       rn(' lei, pentru plata dividendelor asociat'),
       rn(GEN),
       rn(' '),rb(ASOC),
-      rn(', reținându-se impozitul pe venit din dividendele eliberate în sumă de '),
+      rn(', re\u021bin\u00e2ndu-se impozitul pe venit din dividendele eliberate \u00een sum\u0103 de '),
       rn(IMP),
       rn(' lei, conform art. '),rb('90'),rsup('1'),
       rb(', alin. (3'),rsup('1'),rb(')'),
-      rn(' prima linie din Codul Fiscal al Republicii Moldova. Dividende spre plată constituie '),
+      rn(' prima linie din Codul Fiscal al Republicii Moldova. Dividende spre plat\u0103 constituie '),
       rn(DIV),rn(' lei.')
     ], 560, 0, 'hanging'),
 
@@ -24127,12 +24252,9 @@ function genPverbal(){
   var A2=v('pv-A2_NUME'),A2CL=v('pv-A2_COTA_LEI'),A2CP=v('pv-A2_COTA_PROC'),
       A2B=v('pv-A2_BRUT'),A2I=v('pv-A2_IMPOZIT'),A2N=v('pv-A2_NET');
 
-  // Gen: 'm' = Dn-lui, 'f' = Dn-nei
-  var G1 = (window['_type_pv-A1']==='f') ? 'Dn-nei' : 'Dn-lui';
-  var G2 = (window['_type_pv-A2']==='f') ? 'Dn-nei' : 'Dn-nei'.replace('nei','lui');
-  // Recalculate properly
-  G1 = (window['_type_pv-A1']==='f') ? 'Dn-nei' : 'Dn-lui';
-  G2 = (window['_type_pv-A2']==='f') ? 'Dn-nei' : 'Dn-lui';
+  // Gen: 'm' = Dl, 'f' = Dna
+  var G1 = (window['_type_pv-A1']==='f') ? 'Dna' : 'Dl';
+  var G2 = (window['_type_pv-A2']==='f') ? 'Dna' : 'Dl';
 
   var TNR='Times New Roman';
   function rr(t,b,s){return new TextRun({text:String(t||''),bold:!!b,size:s||24,font:TNR});}
@@ -24146,15 +24268,15 @@ function genPverbal(){
   var ch=[
     // Titlu
     pc2([rr('PROCES-VERBAL '+NR,true,26)],60),
-    pc2([rr('al Adunării generale a asociaților',true,24)],60),
-    pc2([rr('Societății cu Răspundere Limitată „'+SOC+'”',true,24)],60),
+    pc2([rr('al Adun\u0103rii generale a asocia\u021bilor',true,24)],60),
+    pc2([rr('Societ\u0103\u021bii cu R\u0103spundere Limitat\u0103 \u201e'+SOC+'\u201d',true,24)],60),
     pc2([rr('IDNO: ',false,24),rr(SOCID,true,24)],200),
 
     // Data
     pl2([rr('Data: ',true,24),rr(D,false,24)],200),
 
     // Au fost prezenti
-    pl2([rr('Au fost prezenți:',true,24)],80),
+    pl2([rr('Au fost prezen\u021bi:',true,24)],80),
     new Paragraph({
       children:[rr(A1,true,24),rr(' - '+A1CL+' lei ('+A1CP+'%)',false,24)],
       alignment:AlignmentType.LEFT,
@@ -24174,23 +24296,23 @@ function genPverbal(){
     pl2([rr('1. Repartizarea dividendelor',false,24)],200),
 
     // S-a hotarat
-    pl2([rr('S-A HOTĂRÂT:',true,24)],120),
+    pl2([rr('S-A HOT\u0102R\u00c2T:',true,24)],120),
 
     pj2([
-      rr('- Se repartizează dividendele din anul curent ',false,24),
+      rr('- Se repartizeaz\u0103 dividendele din '+(window['_pv_an_tip']==='curent' ? 'anul curent ' : 'anul de gestiune '),false,24),
       rr(AN,true,24),
-      rr(' în sumă de ',false,24),
+      rr(' \u00een sum\u0103 de ',false,24),
       rr(PTOT,true,24),
-      rr(' lei după cum urmează:',false,24)
+      rr(' lei dup\u0103 cum urmeaz\u0103:',false,24)
     ],160),
 
     // Asociatul 1
     pj2([
       rr('- '+G1+' ',false,24),rr(A1,true,24),
-      rr(' – ',false,24),rr(A1B,true,24),
-      rr(' lei, cu reținerea impozitului în mărime de 6% ce constituie ',false,24),
+      rr(' \u2013 ',false,24),rr(A1B,true,24),
+      rr(' lei, cu re\u021binerea impozitului \u00een m\u0103rime de 6% ce constituie ',false,24),
       rr(A1I,true,24),
-      rr(' lei, respectiv prin transfer se achită dividende în sumă de ',false,24),
+      rr(' lei, respectiv prin transfer se achit\u0103 dividende \u00een sum\u0103 de ',false,24),
       rr(A1N,true,24),
       rr(' lei.',false,24)
     ],120,720),
@@ -24198,16 +24320,16 @@ function genPverbal(){
     // Asociatul 2
     pj2([
       rr('- '+G2+' ',false,24),rr(A2,true,24),
-      rr(' – ',false,24),rr(A2B,true,24),
-      rr(' lei, cu reținerea impozitului în mărime de 6% ce constituie ',false,24),
+      rr(' \u2013 ',false,24),rr(A2B,true,24),
+      rr(' lei, cu re\u021binerea impozitului \u00een m\u0103rime de 6% ce constituie ',false,24),
       rr(A2I,true,24),
-      rr(' lei, respectiv prin transfer se achită dividende în sumă de ',false,24),
+      rr(' lei, respectiv prin transfer se achit\u0103 dividende \u00een sum\u0103 de ',false,24),
       rr(A2N,true,24),
       rr(' lei.',false,24)
     ],240,720),
 
     // Semnaturi
-    pl2([rr('Au semnat asociații entității:',false,24)],240),
+    pl2([rr('Au semnat asocia\u021bii entit\u0103\u021bii:',false,24)],240),
 
     // Tabel semnaturi 2 coloane fara borduri
     new Table({
@@ -24240,6 +24362,285 @@ function genPverbal(){
   return Packer.toBlob(doc);
 }
 
+/* ===== HELPER: setMunca / setDurata ===== */
+function setMunca(pfx, val, btn) {
+  var parent = btn.closest('.type-toggle') || btn.parentElement;
+  parent.querySelectorAll('.type-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  window['_munca_'+pfx] = val;
+}
+function getMunca(pfx){ return window['_munca_'+pfx] || 'baza'; }
+
+function setDurata(pfx, val, btn) {
+  var parent = btn.closest('.type-toggle') || btn.parentElement;
+  parent.querySelectorAll('.type-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  window['_durata_'+pfx] = val;
+  var det = document.getElementById(pfx+'-durata-det');
+  if(det) det.classList.toggle('hidden', val !== 'determinata');
+}
+function getDurata(pfx){ return window['_durata_'+pfx] || 'nedeterminata'; }
+
+/* ===== DECIZIE VANZARE ===== */
+function genVanzareDec(){
+  var {Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,AlignmentType,WidthType,BorderStyle}=docx;
+  var NR=v('vd-NR'),D=v('vd-DATA'),SOC=v('vd-SOC_NUME'),SOC_ID=v('vd-SOC_IDNO'),
+      DATA_INF=v('vd-DATA_INF'),SEDIU=v('vd-SOC_SEDIU'),
+      ASOC=v('vd-ASOC_NUME'),ASOC_ID=v('vd-ASOC_IDNP'),
+      OB_GEN=v('vd-OBIECT_GEN'),OB_DET=v('vd-OBIECT_DET');
+
+  var TNR='Times New Roman';
+  function rr(t,b,s){return new TextRun({text:String(t||''),bold:!!b,size:s||24,font:TNR});}
+  function pc2(ch,sa){return new Paragraph({children:ch,alignment:AlignmentType.CENTER,spacing:{before:0,after:sa||120}});}
+  function pl2(ch,sa){return new Paragraph({children:ch,alignment:AlignmentType.LEFT,spacing:{before:0,after:sa||120,line:276,lineRule:'auto'}});}
+  function pj2(ch,sa,fi){return new Paragraph({children:ch,alignment:AlignmentType.BOTH,spacing:{before:0,after:sa||120,line:276,lineRule:'auto'},indent:fi?{firstLine:fi}:undefined});}
+
+  var nb={style:BorderStyle.NONE,size:0,color:'FFFFFF'};
+
+  // Parse bunuri - split by newline
+  var bunuri = OB_DET.split('\n').filter(function(l){return l.trim();});
+
+  var ch=[
+    pc2([rr('Decizie/hot\u0103r\u00e2rea nr. ',true),rr(NR,true)],80),
+    pc2([rr('al Asociatului Unic',true,22)],80),
+    pc2([rr('Societ\u0103\u021bii cu R\u0103spundere Limitat\u0103 \u201e'+SOC+'\u201d SRL',true,22)],80),
+    pc2([rr('IDNO: ',false,22),rr(SOC_ID,true,22),rr(' din ',false,22),rr(DATA_INF,true,22)],320),
+    pl2([rr('Data: ',true),rr(D,false)],120),
+    pl2([rr('Sediu: ',true),rr(SEDIU,false)],320),
+    pj2([rr('\tCu privire la v\u00ednzarea urm\u0103toarelor ',false),rr(OB_GEN,true),rr(':',false)],120),
+  ];
+
+  // Add bunuri list
+  bunuri.forEach(function(b){
+    ch.push(pl2([rr(b.trim().startsWith('-')?b.trim():'- '+b.trim())],60));
+  });
+
+  ch.push(pl2([rr('')],120));
+  ch.push(pj2([
+    rr('Subsemnatul, ',false),rr(ASOC,true),
+    rr(', IDNP ',false),rr(ASOC_ID,true),
+    rr(', unicul asociat al \u201e'+SOC+'\u201d SRL, decid urm\u0103toarele:',false)
+  ],120,720));
+  ch.push(pj2([
+    rr('\u00cen scopul men\u021binerii si dezvolt\u0103rii activit\u0103\u021bii \u00eentreprinderii accept v\u00ednzarea urm\u0103toarelor ',false),
+    rr(OB_GEN,true),rr(':',false)
+  ],120,720));
+
+  // Add bunuri list again
+  bunuri.forEach(function(b){
+    ch.push(pl2([rr(b.trim().startsWith('-')?b.trim():'- '+b.trim())],60));
+  });
+
+  ch.push(pl2([rr('')],200));
+
+  // Semnaturi
+  ch.push(new Table({
+    width:{size:9070,type:WidthType.DXA},columnWidths:[4535,4535],
+    borders:{top:nb,bottom:nb,left:nb,right:nb,insideH:nb,insideV:nb},
+    rows:[new TableRow({children:[
+      new TableCell({width:{size:4535,type:WidthType.DXA},borders:{top:nb,bottom:nb,left:nb,right:nb},children:[
+        new Paragraph({children:[rr(ASOC,true)],spacing:{before:0,after:20}}),
+        new Paragraph({children:[rr('Nume/Prenume',false,20)],spacing:{before:0,after:0}})
+      ]}),
+      new TableCell({width:{size:4535,type:WidthType.DXA},borders:{top:nb,bottom:nb,left:nb,right:nb},children:[
+        new Paragraph({children:[rr('_____________________',false)],alignment:AlignmentType.RIGHT,spacing:{before:0,after:0}})
+      ]})
+    ]})]
+  }));
+
+  var doc=new Document({sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:1134,bottom:1134,left:1418,right:851}}},children:ch}]});
+  return Packer.toBlob(doc);
+}
+
+/* ===== PACHET ANGAJARE (ZIP cu 4 documente) ===== */
+async function genAngajare(){
+  var btn=document.getElementById('btnGen');
+  btn.disabled=true; btn.textContent='Se genereaza pachetul...';
+  try{
+    var {Packer,AlignmentType}=docx;
+
+    // Read all fields
+    var DATA=v('ang-DATA'), DATA_START=v('ang-DATA_START'), FUNCTIE=v('ang-FUNCTIE'),
+        LOC=v('ang-LOC_MUNCA'), CIM_NR=v('ang-CIM_NR'),
+        ANG=v('ang-ANG_NUME'), ANG_ID=v('ang-ANG_IDNO'), ANG_ADR=v('ang-ANG_ADRESA'),
+        ANG_ADMIN=v('ang-ANG_ADMIN'), ANG_IB=v('ang-ANG_IBAN'), ANG_BIC=v('ang-ANG_BIC'),
+        SAL=v('ang-SAL_NUME'), SAL_ID=v('ang-SAL_IDNP'), SAL_DOM=v('ang-SAL_DOM'),
+        SAL_BUL=v('ang-SAL_BULETIN'), SAL_OF=v('ang-SAL_OFICIU'),
+        SAL_C=v('ang-SALARIU_C'), SAL_L=v('ang-SALARIU_L'),
+        ZILE=v('ang-ZILE'), ORE=v('ang-ORE'), ODIHNA=v('ang-ODIHNA'), PROBA=v('ang-PROBA');
+
+    var GEN_ANG=getGen('ang-ANG');
+    var isFem=(window['_type_ang-SAL']==='f');
+    var GEN_SAL=isFem?'dna':'dl';
+    var SUBSEMNAT=isFem?'Subsemnata':'Subsemnatul';
+    var INFORMAT=isFem?'informat\u0103':'informat';
+    var MUNCA=getMunca('ang'), DUR=getDurata('ang'), DUR_DET=v('ang-DURATA_DET');
+    var PROBA_OK=PROBA&&PROBA!=='___________';
+
+    // \u2500\u2500 DOC 1: Oferta de munca \u2500\u2500
+    var doc1 = buildDocx([
+      pp([r('OFERT\u0102 DE MUNC\u0102 din ',false),r(DATA,true)],AlignmentType.CENTER,200),
+      pm([['"'+ANG+'" SRL',true],[', cu sediul \u00een Republica Moldova, ',false],[ANG_ADR,false],[', IDNO ',false],[ANG_ID,true],[', \u00een persoana Administratorului ',false],[GEN_ANG+' '+ANG_ADMIN,true],[', numit \u00een continuare \u201eAngajator\u201c,',false]],AlignmentType.BOTH,80,720),
+      pp([r('\u015fi '+GEN_SAL+' ')],AlignmentType.BOTH,0),
+      pm([[SAL,true],[' domiciliat pe adresa: ',false],[SAL_DOM,true],[', IDNP ',false],[SAL_ID,true],[', numit \u00een continuare \u201eSalariat\u201c, pe de alt\u0103 parte, condu\u00e2ndu-se de prevederile articolelor 45-94 din Codul muncii, aprobat prin Legea nr.154-XV din 28 martie 2003, au convenit asupra urm\u0103toarei oferte de munc\u0103:',false]],AlignmentType.BOTH,160,720),
+      hh('CONDI\u021aII GENERALE'),
+      pm([['- Salariatul este angajat \u00een calitate de: ',false],[FUNCTIE,true]]),
+      pm([['- Locul de munc\u0103: ',false],[LOC,true]]),
+      pp([r('- Munca este:')]),
+      pp([r(MUNCA==='baza'?'   a. \u2713 de baz\u0103':'   a. \u25a1 de baz\u0103')],AlignmentType.LEFT,20),
+      pp([r(MUNCA==='cumul'?'   b. \u2713 prin cumul':'   b. \u25a1 prin cumul')],AlignmentType.LEFT,80),
+      pp([r('- Durata Contractului este:')]),
+      pp([r(DUR==='nedeterminata'?'   a. \u2713 nedeterminat\u0103;':'   a. \u25a1 nedeterminat\u0103;')],AlignmentType.LEFT,20),
+      DUR==='determinata'?pm([['   b. \u2713 determinat\u0103 ',false],[DUR_DET,true],[';',false]],AlignmentType.LEFT,80):pp([r('   b. \u25a1 determinat\u0103 _________________;')],AlignmentType.LEFT,80),
+      hh('RETRIBUIREA MUNCII'),
+      pm([['- Salariul: ',false],[SAL_C+' ('+SAL_L+')',true],[' lei.',false]]),
+      pm([['- Regimul de munc\u0103: ',false],[ZILE,true],[' zile/s\u0103pt\u0103m\u00e2n\u0103, a c\u00e2te ',false],[ORE,true],[' ore.',false]]),
+      pp([r('- Ore suplimentare se vor efectua doar cu acordul salariatului.')]),
+      pp([r('- Concediul de odihn\u0103 anual: 28 zile/an.')],AlignmentType.BOTH,200),
+      hh('CONFIDEN\u021aIALITATEA'),
+      pp([r('P\u0103r\u021bile convin c\u0103, pe toat\u0103 durata contractului \u015fi timp de cel mult 2 ani dup\u0103 \u00eencetarea acestuia, s\u0103 nu divulge date sau informa\u021bii de care au luat cuno\u015ftin\u021b\u0103 \u00een perioada execut\u0103rii contractului.')],AlignmentType.BOTH,200),
+      pp([r('')],AlignmentType.LEFT,200),
+      mkTbl(
+        [{t:'ANGAJATOR',b:true},{t:'"'+ANG+'" SRL',b:true},{t:'IDNO: '+ANG_ID},{t:ANG_ADR},{t:'Administrator: '+GEN_ANG+' '+ANG_ADMIN},{t:''},{t:'Semn\u0103tura: ___________________'},{t:'L.S.'}],
+        [{t:'SALARIAT',b:true},{t:SAL,b:true},{t:'IDNP: '+SAL_ID},{t:SAL_DOM},{t:''},{t:'Semn\u0103tura: ___________________'}]
+      )
+    ]);
+
+    // \u2500\u2500 DOC 2: Contract Individual de Munca \u2500\u2500
+    var doc2 = buildDocx([
+      pp([r('CONTRACT INDIVIDUAL DE MUNC\u0102 nr. ',true,26),r(CIM_NR,true,26)],AlignmentType.CENTER,40),
+      dateRow(DATA,'Mun. Chi\u015fin\u0103u'),
+      pm([['"'+ANG+'" SRL',true],[', cu sediul \u00een Republica Moldova, ',false],[ANG_ADR,false],[', IDNO ',false],[ANG_ID,true],[', \u00een persoana Administratorului ',false],[GEN_ANG+' '+ANG_ADMIN,true],[', numit \u00een continuare \u201eAngajator\u201c,',false]],AlignmentType.BOTH,80,720),
+      pm([['\u015fi '+GEN_SAL+' ',false],[SAL,true],[' domiciliat pe adresa: ',false],[SAL_DOM,true],[', IDNP ',false],[SAL_ID,true],[', numit \u00een continuare \u201eSalariat\u201c, pe de alt\u0103 parte, condu\u00e2ndu-se de prevederile articolelor 45-94 din Codul muncii, aprobat prin Legea nr.154-XV din 28 martie 2003, au convenit asupra urm\u0103toarei oferte de munc\u0103:',false]],AlignmentType.BOTH,160,720),
+      hh('I. CONDI\u021aII GENERALE'),
+      pp([r('1.1. Salariatul este angajat \u00een calitate de: '),r(FUNCTIE,true),r('.')]),
+      pm([['1.2. Locul de munc\u0103: ',false],[LOC,true],['.',false]]),
+      pp([r('1.3. Munca este:')]),
+      pp([r(MUNCA==='baza'?'   a. \u2713 de baz\u0103;':'   a. \u25a1 de baz\u0103;')],AlignmentType.LEFT,20),
+      pp([r(MUNCA==='cumul'?'   b. \u2713 prin cumul.':'   b. \u25a1 prin cumul.')],AlignmentType.LEFT,80),
+      pp([r('1.4. Durata Contractului este:')]),
+      pp([r(DUR==='nedeterminata'?'   a. \u2713 nedeterminat\u0103;':'   a. \u25a1 nedeterminat\u0103;')],AlignmentType.LEFT,20),
+      DUR==='determinata'?pm([['   b. \u2713 determinat\u0103 ',false],[DUR_DET,true],[';',false]],AlignmentType.LEFT,20):pp([r('   b. \u25a1 determinat\u0103 _________________;')],AlignmentType.LEFT,20),
+      PROBA_OK?pm([['1.5. Perioada de prob\u0103: ',false],[PROBA,true],[';',false]]):pp([r('1.5. Perioada de prob\u0103: ______________;')]),
+      hh('III. RETRIBUIREA MUNCII'),
+      pm([['3.1. Salariul: ',false],[SAL_C+' ('+SAL_L+')',true],[' lei.',false]]),
+      pm([['3.2. Regimul de munc\u0103: ',false],[ZILE,true],[' zile/s\u0103pt\u0103m\u00e2n\u0103, a c\u00e2te ',false],[ORE,true],[' ore.',false]]),
+      pp([r('     Ore suplimentare se vor efectua doar cu acordul salariatului.')]),
+      pm([['3.3. Regimul de odihn\u0103: ',false],[ODIHNA,true],['.',false]]),
+      pp([r('3.4. Concediul de odihn\u0103 anual: 28 zile/an.')],AlignmentType.BOTH,200),
+      hh('IV. CONFIDEN\u021aIALITATEA'),
+      pp([r('P\u0103r\u021bile convin c\u0103, pe toat\u0103 durata contractului \u015fi timp de cel mult 2 ani dup\u0103 \u00eencetarea acestuia, s\u0103 nu divulge date sau informa\u021bii de care au luat cuno\u015ftin\u021b\u0103 \u00een perioada execut\u0103rii contractului individual de munc\u0103.')],AlignmentType.BOTH,200),
+      pp([r('')],AlignmentType.LEFT,200),
+      mkTbl(
+        [{t:'ANGAJATOR',b:true},{t:'"'+ANG+'" SRL',b:true},{t:'IDNO: '+ANG_ID},{t:ANG_ADR},{t:'IBAN: '+ANG_IB},{t:'BIC: '+ANG_BIC},{t:'Administrator: '+GEN_ANG+' '+ANG_ADMIN},{t:''},{t:'Semn\u0103tura: ___________________'},{t:'L.S.'}],
+        [{t:'SALARIAT',b:true},{t:SAL,b:true},{t:'IDNP: '+SAL_ID},{t:SAL_DOM},{t:''},{t:'Semn\u0103tura: ___________________'}]
+      )
+    ]);
+
+    // \u2500\u2500 DOC 3: Cerere angajare \u2500\u2500
+    var SUBSEMNAT_A=isFem?'Subsemnata':'Subsemnatul';
+    var doc3 = buildDocx([
+      pp([r('C\u0103tre '),r(ANG,true)],AlignmentType.RIGHT,40),
+      pp([r(GEN_ANG+'ui administrator')],AlignmentType.RIGHT,40),
+      pp([r(ANG_ADMIN,true)],AlignmentType.RIGHT,200),
+      pp([r('CERERE',true,26)],AlignmentType.CENTER,200),
+      new docx.Paragraph({children:[new docx.TextRun({text:SUBSEMNAT_A+' ',font:'Times New Roman',size:24}),new docx.TextRun({text:SAL,bold:true,font:'Times New Roman',size:24}),new docx.TextRun({text:', rog s\u0103 fiu angajat/\u0103 \u00een func\u021bia ',font:'Times New Roman',size:24}),new docx.TextRun({text:FUNCTIE,bold:true,font:'Times New Roman',size:24}),new docx.TextRun({text:', \u00eencep\u00e2nd cu data de ',font:'Times New Roman',size:24}),new docx.TextRun({text:DATA_START,bold:true,font:'Times New Roman',size:24}),new docx.TextRun({text:'.',font:'Times New Roman',size:24})],alignment:AlignmentType.BOTH,spacing:{before:0,after:200,line:360,lineRule:'auto'},indent:{firstLine:720}}),
+      pp([r('')],AlignmentType.LEFT,200),
+      mkTbl([{t:'Data: '+DATA}],[{t:'Semn\u0103tura: /___________________/'}]),
+      pp([r('')],AlignmentType.LEFT,160),
+      pp([r('Aprobat:')],AlignmentType.LEFT,40),
+      pp([r(ANG_ADMIN,true)],AlignmentType.LEFT,40),
+      pp([r('/___________________________/')],AlignmentType.LEFT,40),
+      pp([r('(Administrator)')],AlignmentType.LEFT,0)
+    ]);
+
+    // \u2500\u2500 DOC 4: Declaratie date personale \u2500\u2500
+    var {TableRow,TableCell,Table,WidthType,TextRun,BorderStyle}=docx;
+    var nb2={style:BorderStyle.NONE,size:0,color:'FFFFFF'};
+    var tb2={style:BorderStyle.SINGLE,size:4,color:'888888'};
+    function tblRow2(l,r2){
+      return new Table({width:{size:9070,type:WidthType.DXA},columnWidths:[4535,4535],
+        borders:{top:nb2,bottom:nb2,left:nb2,right:nb2,insideH:nb2,insideV:nb2},
+        rows:[new TableRow({children:[
+          new TableCell({width:{size:4535,type:WidthType.DXA},borders:{top:tb2,bottom:nb2,left:nb2,right:nb2},margins:{top:80,bottom:80,left:0,right:0},
+            children:[new docx.Paragraph({children:[new TextRun({text:l,bold:true,size:20,font:'Times New Roman'})],spacing:{before:0,after:0}})]}),
+          new TableCell({width:{size:4535,type:WidthType.DXA},borders:{top:tb2,bottom:nb2,left:nb2,right:nb2},margins:{top:80,bottom:80,left:120,right:0},
+            children:[new docx.Paragraph({children:[new TextRun({text:r2,bold:true,size:20,font:'Times New Roman'})],spacing:{before:0,after:0}})]})
+        ]})]
+      });
+    }
+
+    var doc4 = buildDocx([
+      pp([r(ANG,true)],AlignmentType.RIGHT,40),
+      pp([r('IDNO '+ANG_ID)],AlignmentType.RIGHT,40),
+      pp([r(ANG_ADR)],AlignmentType.RIGHT,200),
+      pp([r('Declara\u021bie privind prelucrarea datelor cu caracter personal',true,24)],AlignmentType.CENTER,200),
+      pm([[SUBSEMNAT+'(a): ',false],[SAL,true]]),
+      pm([['Cod personal: ',false],[SAL_ID,true]]),
+      pm([['Buletinul de identitate seria: ',false],[SAL_BUL,true],['.',false]]),
+      pm([['Eliberat de oficiul: ',false],[SAL_OF,true],['.',false]]),
+      pm([['Domiciliu: ',false],[SAL_DOM,true],[':',false]]),
+      pm([['Func\u021bie: ',false],[FUNCTIE,true]],AlignmentType.BOTH,160),
+      pp([r('Sunt '+INFORMAT+'(\u0103) cu prevederile art. 12 din Legea nr. 133-XVI din 8 iulie 2011 privind protec\u021bia datelor cu caracter personal \u015fi \u00eemi exprim consim\u021b\u0103m\u00eentul cu privire la prelucrarea datelor cu caracter personal ce m\u0103 vizeaz\u0103.')],AlignmentType.BOTH,120),
+      pp([r('Confirm c\u0103 mi s-au adus la cuno\u015ftin\u021b\u0103 drepturile mele prev\u0103zute \u00een art.12-18 din Legea privind protec\u021bia datelor cu caracter personal.')],AlignmentType.BOTH,120),
+      pp([r('Am luat cuno\u015ftin\u021b\u0103 de faptul c\u0103 datele cu caracter personal vor fi prelucrate cu respectarea regimului de securitate \u015fi confiden\u021bialitate, \u00een conformitate cu prevederile Legii privind protec\u021bia datelor cu caracter personal \u015fi Hot\u0103r\u00e2rii Guvernului nr. 1123 din 14 decembrie 2010.')],AlignmentType.BOTH,120),
+      pp([r('Prezentul acord intr\u0103 \u00een vigoare de la data semn\u0103rii acestuia \u015fi va fi valabil p\u00een\u0103 la depunerea \u00een scris a unei solicit\u0103ri de retragere a consim\u021b\u0103m\u00e2ntului.')],AlignmentType.BOTH,200),
+      pp([r('')],AlignmentType.LEFT,80),
+      tblRow2('Numele, Prenumele: '+SAL,'Semn\u0103tura _________________'),
+      pp([r('')],AlignmentType.LEFT,80),
+      pp([r('Prezentul acord a fost \u00eentocmit \u00een dou\u0103 exemplare, c\u00e2te unul pentru fiecare parte.')],AlignmentType.BOTH,80),
+      tblRow2('Am primit un exemplar','Semn\u0103tura _________________')
+    ]);
+
+    // \u2500\u2500 Convert all to blobs \u2500\u2500
+    var [b1,b2,b3,b4] = await Promise.all([
+      Packer.toBlob(doc1), Packer.toBlob(doc2),
+      Packer.toBlob(doc3), Packer.toBlob(doc4)
+    ]);
+
+    // \u2500\u2500 ZIP \u2500\u2500
+    var JSZip = docx.JSZip;
+    var zip = new JSZip();
+    zip.file('1_Oferta_de_Munca.docx', b1);
+    zip.file('2_Contract_Individual_Munca.docx', b2);
+    zip.file('3_Cerere_Angajare.docx', b3);
+    zip.file('4_Declaratie_Date_Personale.docx', b4);
+
+    var zipBlob = await zip.generateAsync({type:'blob'});
+    var url = URL.createObjectURL(zipBlob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Pachet_Angajare_'+SAL.replace(/ /g,'_')+'.zip';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+
+    var t=document.getElementById('toast');
+    t.textContent='\u2705 Pachet generat: 4 documente in ZIP!';
+    t.className='toast show';
+    setTimeout(function(){t.className='toast';},4000);
+
+  } catch(e){
+    console.error(e);
+    var t=document.getElementById('toast');
+    t.textContent='\u274c Eroare: '+e.message;
+    t.className='toast error show';
+    setTimeout(function(){t.className='toast';},6000);
+  }
+  btn.disabled=false;
+  btn.textContent='\u2b07 Descarca Document Word (.docx)';
+}
+
+function buildDocx(children){
+  var {Document}=docx;
+  return new Document({sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:1134,bottom:1134,left:1418,right:851}}},children:children}]});
+}
+
+/* ===== OFERTA DE MUNCA (standalone - kept for compatibility) ===== */
+function genOferta(){ return mkDoc([]); }
+function genCim(){ return mkDoc([]); }
+function genCerere(){ return mkDoc([]); }
+function genDeclaratie(){ return mkDoc([]); }
+
 async function genereaza(){
   var btn=document.getElementById('btnGen');
   btn.disabled=true; btn.textContent='Se genereaza...';
@@ -24253,7 +24654,9 @@ async function genereaza(){
     else if(cur==='locspatiu') blob=await genLocspatiu();
     else if(cur==='decizie') blob=await genDecizie();
     else if(cur==='pverbal') blob=await genPverbal();
-    var names={'preluare':'Contract_Preluare_Datorie','imprumut':'Contract_Imprumut','servicii':'Contract_Prestari_Servicii','vanzare':'Contract_Vanzare_Cumparare','locauto':'Contract_Locatiune_Auto','locspatiu':'Contract_Locatiune_Spatiu','decizie':'Decizie_Dividende','pverbal':'Proces_Verbal_Dividende'};
+    else if(cur==='angajare') { await genAngajare(); return; }
+    else if(cur==='vanzare_dec') blob=await genVanzareDec();
+    var names={'preluare':'Contract_Preluare_Datorie','imprumut':'Contract_Imprumut','servicii':'Contract_Prestari_Servicii','vanzare':'Contract_Vanzare_Cumparare','locauto':'Contract_Locatiune_Auto','locspatiu':'Contract_Locatiune_Spatiu','decizie':'Decizie_Dividende','pverbal':'Proces_Verbal_Dividende','vanzare_dec':'Decizie_Vanzare'};
     var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
     a.href=url; a.download=(names[cur]||'Document')+'.docx';
